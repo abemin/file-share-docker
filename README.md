@@ -180,7 +180,7 @@ docker-compose up -d
 - **Database**: Credentials are set via environment variables. Use Docker secrets for production.
 - **Network Share**: Mounted read-only to prevent modifications.
 - **Sessions**: `session.cookie_httponly` and `session.use_strict_mode` are enabled in the Docker image.
-- **Reverse Proxy**: Configure a reverse proxy (e.g., Nginx) for HTTPS and forward requests to the configured port (e.g., 8080).
+- **Reverse Proxy**: Configure a reverse proxy (e.g., Nginx) for HTTPS and forward requests to the configured port (e.g., 8080). If using Nginx Proxy Manager, add "add_header Content-Security-Policy "upgrade-insecure-requests" always;" in the custom configuration location. else it will be blocked because of mixed content.
 - **CSRF**: Consider adding CSRF protection to `login.php` for production.
 - **Password Storage**: Passwords are hashed with bcrypt in the `users` table.
 
