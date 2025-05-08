@@ -17,11 +17,13 @@ COPY app/ /var/www/html/
 # Create symbolic link for share
 RUN ln -s /mnt/share /var/www/html/share
 
-# Set permissions
+# Set permissions for application files
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chown -R www-data:www-data /mnt/share \
-    && chmod -R 755 /mnt/share
+    && chmod -R 755 /var/www/html
+
+# Copy and set entrypoint
+COPY scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Configure Apache
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
@@ -33,5 +35,5 @@ RUN echo "session.cookie_httponly = 1" >> /usr/local/etc/php/conf.d/session.ini 
 # Expose port 80
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Use entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
