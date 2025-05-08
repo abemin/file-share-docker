@@ -40,11 +40,9 @@ file-share-docker/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/file-share-docker.git
+git clone https://github.com/abemin/file-share-docker.git
 cd file-share-docker
 ```
-
-Replace `your-username` with your GitHub username.
 
 ### 2. Configure the Network Share
 Ensure a network share (e.g., NFS/SMB) is mounted at `/mnt/share` on the host:
@@ -186,16 +184,4 @@ docker-compose up -d
 - **CSRF**: Consider adding CSRF protection to `login.php` for production.
 - **Password Storage**: Passwords are hashed with bcrypt in the `users` table.
 
-## Contributing
-Contributions are welcome! Please:
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feature/your-feature`).
-3. Commit changes (`git commit -m 'Add your feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Open a pull request.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-For issues or questions, open a GitHub issue or contact [your-email@example.com](mailto:your-email@example.com).
