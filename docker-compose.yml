@@ -1,0 +1,39 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /mnt/share:/mnt/share:ro
+    environment:
+      - DB_HOST=db
+      - DB_USER=file_share_user
+      - DB_PASS=P@ssw0rd
+      - DB_NAME=file_share
+    ports:
+      - "8080:80"  # Configurable; change 8080 to desired host port
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mariadb:10.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+      - MYSQL_DATABASE=file_share
+      - MYSQL_USER=file_share_user
+      - MYSQL_PASSWORD=P@ssw0rd
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+    # No ports exposed to host
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
